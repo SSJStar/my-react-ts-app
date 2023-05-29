@@ -2,27 +2,28 @@
 import './App.css';
 // import { LoginForm } from "./pages/LoginForm";
 import { useRoutes } from "react-router-dom";
-import myRouter from "@/router/routeConfig";
-import rt from "./pages/home";
+import myRouter from "src/router/routeConfig";
+
+// import rt from "src/pages/home";
 
 
-// @ts-ignore
-const myRouter2:Array<RouteObject> = [
-    {
-        // 根目录
-        path:"/",
-        // @ts-ignore
-        element: rt,//lazy(()=>import("@/pages/home")),
-        children:[
-        ]
-    },
-    // 登陆
-    {
-        path:"login",
-        // @ts-ignore
-        element:rt,//lazy(() => import("@/pages/LoginForm")),
-    },
-]
+
+// const myRouter2:Array<RouteObject> = [
+//     {
+//         // 根目录
+//         path:"/",
+//         // @ts-ignore
+//         element: rt,//lazy(()=>import("@/pages/home")),
+//         children:[
+//         ]
+//     },
+//     // 登陆
+//     {
+//         path:"login",
+//         // @ts-ignore
+//         element:rt,//lazy(() => import("@/pages/LoginForm")),
+//     },
+// ]
 
 function App() {
   // return (
@@ -45,7 +46,7 @@ function App() {
     //     </div>
     // );
 
-    return useRoutes(myRouter2)
+    return useRoutes(myRouter)
 }
 
 export default App;

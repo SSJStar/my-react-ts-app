@@ -1,32 +1,34 @@
 /* // @ts-nocheck */
 import {RouteObject} from "react-router-dom";
-// import {lazy} from "react";
+import { lazy } from "react";
 
-import rt from "@/pages/home"
+// import rt from "@/pages/home"
+// @ts-ignore
+const loginView = lazy(() => import("src/pages/LoginForm"));
 const myRouter:Array<RouteObject> = [
     {
         // 根目录
         path:"/",
         // @ts-ignore
-        element: rt,//lazy(()=>import("@/pages/home")),
+        element: lazy(()=>import("src/pages/home")),
         children:[
-            // {
-            //     path:"list",
-            //     // @ts-ignore
-            //     element:lazy(() => import("@/pages/item")),
-            // },
-            // {
-            //     path:"detail",
-            //     // @ts-ignore
-            //     element:lazy(() => import("@/pages/detail")),
-            // }
+            {
+                path:"/list",
+                // @ts-ignore
+                element:lazy(() => import("src/pages/item")),
+            },
+            {
+                path:"detail",
+                // @ts-ignore
+                element:lazy(() => import("src/pages/detail")),
+            }
         ]
     },
     // 登陆
     {
         path:"login",
         // @ts-ignore
-        element:rt,//lazy(() => import("@/pages/LoginForm")),
+        element:loginView,
     },
 ]
 export default myRouter
