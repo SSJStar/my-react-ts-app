@@ -17,7 +17,8 @@ root.render(
 
   </React.StrictMode>
 );
-reportWebVitals(console.warn);
+// 这句会在浏览器控制台，打印一些警告
+// reportWebVitals(console.warn);
 
 /**【方式2】 */
 // import * as React from "react";

@@ -18,7 +18,7 @@ const myRouter:Array<RouteObject> = [
                 element:lazy(() => import("src/pages/item")),
             },
             {
-                path:"detail",
+                path:"/detail",
                 // @ts-ignore
                 element:lazy(() => import("src/pages/detail")),
             }
