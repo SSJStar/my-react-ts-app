@@ -14,7 +14,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <BrowserRouter><App /></BrowserRouter>
-
   </React.StrictMode>
 );
 // 这句会在浏览器控制台，打印一些警告

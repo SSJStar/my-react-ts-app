@@ -10,7 +10,7 @@ const myRouter:Array<RouteObject> = [
         // 根目录
         path:"/",
         // @ts-ignore
-        element: lazy(()=>import("src/pages/home")),
+        element: loginView,
         children:[
             {
                 path:"/list",
