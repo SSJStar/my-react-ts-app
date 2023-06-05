@@ -127,72 +127,104 @@
 
 
 
-import React from "react";
+// import React from "react";
+//
+// // 函数组件
+// interface FUNComponentPro{
+//     title:string,
+// }
+// function FUNComponent(pro:FUNComponentPro){
+//     const [value,setValue] = React.useState("");
+//     const handelButton = ()=>{
+//         setTimeout(()=>{
+//             alert("函数组件value:" + value);
+//         },3000);
+//     }
+//     // 样式
+//     let funStyle = {
+//         margin: '0 0 0 20px',
+//     };
+//     return <div style={funStyle}>
+//         <h1>{pro.title}</h1>
+//         <input placeholder={"请输入内容"} value={value}
+//                onChange={({target})=>{setValue(target.value)}}>
+//         </input>
+//         <button onClick={handelButton}>函数组件，3秒后展示value</button>
+//     </div>
+// }
+//
+// // 类组件
+// class ClassCompenent extends React.Component<any, any> {
+//     constructor(pro:any) {
+//         super(pro);
+//         this.state = {
+//             value:"",
+//         }
+//     }
+//     handelButton = () => {
+//         setTimeout(()=>{
+//             alert("类组件value:" + this.state.value);
+//         },3000);
+//     }
+//     classStyle = {
+//         margin: '0 0 0 20px',
+//     };
+//     render() {
+//         return (
+//             <div style={this.classStyle}>
+//                 <input placeholder={"请输入内容"} value={this.state.value}
+//                        onChange={({target})=>{
+//                            this.setState({value:target.value})
+//                        }}>
+//                 </input>
+//                 <button onClick={this.handelButton}>类组件，3秒后展示value</button>
+//             </div>
+//         );
+//     }
+// }
+//
+// // 父组件
+// function ParentComponent(){
+//     const funTitle = "我是函数组件哈哈" as string;
+//     return (
+//         <div>
+//             <h1>我是父组件</h1>
+//             <FUNComponent title={funTitle}></FUNComponent>
+//             <br></br>
+//             <ClassCompenent></ClassCompenent>
+//         </div>
+//     )
+// }
 
-// 函数组件
-interface FUNComponentPro{
-    title:string,
-}
-function FUNComponent(pro:FUNComponentPro){
-    const [value,setValue] = React.useState("");
-    const handelButton = ()=>{
-        setTimeout(()=>{
-            alert("函数组件value:" + value);
-        },3000);
-    }
-    // 样式
-    let funStyle = {
-        margin: '0 0 0 20px',
+import { UserOutlined } from '@ant-design/icons';
+import {Button, Input} from 'antd';
+import {style} from "postcss-minify-font-values/types/lib/keywords";
+const LoginView = ()=>{
+    const style_contentDiv = {
+        width: '50%',
+        height: '50%',
+        backgroundColor: 'pink',
+        // align:
+        // display:'flex',
+        justifyContent:'center',
+        alignItems:'center'
     };
-    return <div style={funStyle}>
-        <h1>{pro.title}</h1>
-        <input placeholder={"请输入内容"} value={value}
-               onChange={({target})=>{setValue(target.value)}}>
-        </input>
-        <button onClick={handelButton}>函数组件，3秒后展示value</button>
-    </div>
-}
-
-// 类组件
-class ClassCompenent extends React.Component<any, any> {
-    constructor(pro:any) {
-        super(pro);
-        this.state = {
-            value:"",
-        }
-    }
-    handelButton = () => {
-        setTimeout(()=>{
-            alert("类组件value:" + this.state.value);
-        },3000);
-    }
-    classStyle = {
-        margin: '0 0 0 20px',
-    };
-    render() {
-        return (
-            <div style={this.classStyle}>
-                <input placeholder={"请输入内容"} value={this.state.value}
-                       onChange={({target})=>{
-                           this.setState({value:target.value})
-                       }}>
-                </input>
-                <button onClick={this.handelButton}>类组件，3秒后展示value</button>
-            </div>
-        );
-    }
-}
-
-// 父组件
-function ParentComponent(){
-    const funTitle = "我是函数组件哈哈" as string;
     return (
-        <div>
-            <h1>我是父组件</h1>
-            <FUNComponent title={funTitle}></FUNComponent>
-            <br></br>
-            <ClassCompenent></ClassCompenent>
+        <div style={{ backgroundColor: "darkgray" }}>
+            <div className={"contentDiv"} style={ style_contentDiv }>
+                <Input size="large" placeholder="请输入用户名" prefix={<UserOutlined />} />
+
+                <div style={{ height:'40px' }}></div>
+
+                <Input.Password placeholder="请输入密码" prefix={<UserOutlined />} />
+
+                <div style={{ height:'40px' }}></div>
+
+                <Button>登 陆</Button>
+            </div>
+
         </div>
     )
-}
-export default <ParentComponent />;
+};
+
+export default <LoginView />;
