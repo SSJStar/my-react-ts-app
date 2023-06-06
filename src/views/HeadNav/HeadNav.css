@@ -1,0 +1,59 @@
+.head-nav {
+    width: 100%;
+    /*height: v-bind(navgation_height);*/
+    height: 80px;
+    overflow: hidden;
+    /*background-color: v-bind(navgation_bgColor); !** cadetblue *!*/
+    background-color: cadetblue; /** cadetblue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 标题 */
+.head-nav label {
+    /*font-size: v-bind(navgation_fontSize);*/
+    /*color: v-bind(navgation_titleColor);*/
+    font-size: 24px;
+    color: darkslategray;
+}
+/* 点击头像-列表-每一项的字体大小*/
+.boxDiv label {
+    /*font-size: v-bind(navgation_list_fontSize);*/
+    font-size: 12px;
+}
+/* 头像 + 昵称 */
+.userInfoDiv {
+    right: 20px;
+    height: 40px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+.userInfoDiv img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.userInfoDiv label {
+    float: right;
+    margin-left: 10px;
+    height: 30px;
+}
+
+/* 点击头像-列表 */
+.boxDiv {
+    display: flex;
+    /*top: v-bind(navgation_height);*/
+    /*right: v-bind(boxRight);*/
+    top: 100px;
+    right: 80px;
+    background-color: #333333;
+    position: absolute;
+    flex-direction: column;
+    padding: 10px 8px;
+    z-index: 999;
+}
+.boxDiv label {
+    color: white;
+}

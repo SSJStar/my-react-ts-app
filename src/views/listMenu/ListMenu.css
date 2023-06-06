@@ -1,0 +1,39 @@
+/*设置 - 每一级别的菜单图标大小*/
+.el-icon .icon-style {
+    width: 16px;
+    height: 16px;
+}
+
+/*折叠按钮*/
+.foldIcon {
+    height: 30px;
+    background-color: v-bind(foldIconColor);
+    /*设置子元素 - 水平垂直居中*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*设置 - 折叠图标大小*/
+.foldIcon img {
+    width: 16px;
+    height: 16px;
+}
+
+/*去掉el-menu右侧 - 白色边框线*/
+.el-menu {
+    border: 0 !important;
+    height: 100%;
+    text-align: center;
+}
+
+/*虽然灰色，但是起作用了……*/
+.caiDanAuth {
+    /*font-size: v-bind(menuFontSize);*/
+    font-size: 18px;
+}
+
+/*设置三角形显示还是隐藏，由响应式变量displayValue来控制*/
+/*.el-menu .el-sub-menu__icon-arrow {*/
+/*    display: v-bind(displayValue);*/
+/*}*/
