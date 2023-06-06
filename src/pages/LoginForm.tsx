@@ -199,19 +199,30 @@
 import { UserOutlined } from '@ant-design/icons';
 import {Button, Input} from 'antd';
 import {style} from "postcss-minify-font-values/types/lib/keywords";
-const LoginView = ()=>{
-    const style_contentDiv = {
-        width: '50%',
-        height: '50%',
-        backgroundColor: 'pink',
-        // align:
-        // display:'flex',
-        justifyContent:'center',
-        alignItems:'center'
-    };
+import myRouter from "@/router/routeConfig";
+import {lazy, Suspense} from "react";
+import {Route, useNavigate} from "react-router";
+// const LoginView = () => {
+export default function LoginView() {
+    // const style_contentDiv = {
+    //     width: '50%',
+    //     height: '50%',
+    //     backgroundColor: 'pink',
+    //     // align:
+    //     // display:'flex',
+    //     justifyContent:'center',
+    //     alignItems:'center'
+    // };
+    const navigateTo = useNavigate();
+    const handelClick = () => {
+        // myRouter.push("");
+    // let navigate = useNavigate();
+    //     useNavigate(lazy(() => import("src/pages/detail")));
+        navigateTo("/detail")
+    }
     return (
         <div style={{ backgroundColor: "darkgray" }}>
-            <div className={"contentDiv"} style={ style_contentDiv }>
+            <div id={"contentDiv"}>
                 <Input size="large" placeholder="请输入用户名" prefix={<UserOutlined />} />
 
                 <div style={{ height:'40px' }}></div>
@@ -220,11 +231,14 @@ const LoginView = ()=>{
 
                 <div style={{ height:'40px' }}></div>
 
-                <Button>登 陆</Button>
+                {/*<Route path={"/detail"}>*/}
+                {/*    <Suspense fallback={console.log("哈哈")}>*/}
+                {/*        go!*/}
+                {/*    </Suspense>*/}
+                {/*</Route>*/}
+                <Button onClick={ handelClick }>登 陆</Button>
             </div>
 
         </div>
     )
 };
-
-export default <LoginView />;

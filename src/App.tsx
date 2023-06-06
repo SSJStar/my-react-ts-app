@@ -46,6 +46,15 @@ function App() {
     //     </div>
     // );
 
+    // return (
+    //     <div>
+    //         <ul>
+    //             <li><a href={"/detail"}>detail</a></li>
+    //             <li><a href={"/list"}>list</a></li>
+    //         </ul>
+    //     </div>
+    // )
+
     return useRoutes(myRouter)
 }
 

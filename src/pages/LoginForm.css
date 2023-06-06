@@ -1,0 +1,7 @@
+.contentDiv {
+    width: 50%;
+    height: 50%;
+    backgroundColor: pink;
+    justifyContent:'center';
+    alignItems:'center';
+}
