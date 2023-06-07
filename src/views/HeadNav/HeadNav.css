@@ -4,7 +4,7 @@
     height: 80px;
     overflow: hidden;
     /*background-color: v-bind(navgation_bgColor); !** cadetblue *!*/
-    background-color: cadetblue; /** cadetblue */
+    background-color: cadetblue;
     display: flex;
     align-items: center;
     justify-content: center;

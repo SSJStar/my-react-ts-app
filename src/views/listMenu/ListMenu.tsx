@@ -199,7 +199,7 @@
 //     </script>
 
 
-import { Layout, Menu, Button, theme } from "antd";
+import {Layout, Menu, Button, theme, MenuProps} from "antd";
 import {
     BarChartOutlined, BugOutlined, MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -213,36 +213,54 @@ import {useNavigate,Outlet} from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 interface proComponentPro {
-    foldOn_width:string,
-    foldOff_width:string,
-    listJson:Array<any>,
+    foldOn_width:string,  // 展开时的宽度
+    foldOff_width:string, // 收起时的宽度
+    listJson:Array<any>,  // 菜单数据源
 }
 
 /*TODO: 唯一的模块导出 */
-/**
- * 参数说明
- *
- *  作者：小青龙
- *  时间：2023/06/06 16:32:50
- *  说明：
- *      @foldOn_width:   展开时的宽度
- *      @foldOff_width: 收起时的宽度
- *      @listJson: 菜单数据源
- */
-// export default function ListMenu(foldOn_width:string,foldOff_width:string,listJson:Array<any>){
 export default function ListMenu(pro:proComponentPro){
     const navigateTo = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    // 点击菜单
+    const onClick: MenuProps['onClick'] = (e) => {
+        console.log('click ', e.key);
 
+
+            // console.log(`key:${pro.listJson[2].label}`)
+            // console.log(`item1:${item.toString()}`)
+            // console.log(`item2:${item}`)
+            //
+            // console.log(`item3:${JSON.stringify(item)}`)
+            // console.log(typeof item);
+            // console.log(item.label);
+        // 减去1是因为，数组下标是从0开始，而key是从1开始
+        const index = parseInt(e.key) - 1;
+        console.log('index ', index);
+        const itemInfo = pro.listJson[index];
+        console.log(`选中了${itemInfo.label}`);
+            navigateTo(itemInfo.path);
+        //
+        //     // TODO: search方式 - 传递参数
+        //     // console.log(key);
+        //     // navigateTo("item?title=sear传值&name=张三")
+        //
+        //     // TODO: params方式 - 传递参数
+        //     // navigateTo("item/params传值/name=李四")
+        //     // navigateTo("item/001")
+        //
+        //     // TODO: state方式 - 传递参数
+        //     // navigateTo("item",{state:{title:'state传值',name:"王五"}})
+    };
 
     return (
         <Layout style={{ width: "100vw", height: "100vh", color: "#fff" }}>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 {/*<div className={styles.logo}>*/}
-                <div>
+                <div style={{paddingTop:'20px',paddingLeft:'10px'}}>
                     <BugOutlined />
                     <span
                         style={collapsed ? { display: "none" } : undefined}
@@ -254,10 +272,7 @@ export default function ListMenu(pro:proComponentPro){
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={["1"]}
-                    onClick={({ key }) => {
-                        console.log(key);
-                        navigateTo(key);
-                    }}
+                    onClick={onClick}
                     items={pro.listJson}
                 />
             </Sider>

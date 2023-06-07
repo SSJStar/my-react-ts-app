@@ -50,6 +50,11 @@ const myRouter: Array<RouteObject> = [
         // @ts-ignore
         element: withLoadingComponent(<LoginView/>),
     },
+    {
+        path: "/item",
+        // @ts-ignore
+        element: withLoadingComponent(<Item />),
+    },
 ];
 export default myRouter
 
