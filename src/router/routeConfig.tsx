@@ -10,7 +10,8 @@ const  withLoadingComponent = (com:JSX.Element) => (
 
 // @ts-ignore
 const LoginView = lazy(() => import("src/pages/LoginForm")); //
-const Item = lazy(() => import("src/pages/Item"));  //点击列表
+const FirstItem = lazy(() => import("src/pages/FirstLevelView"));  //一级菜单列表
+const SecondItem = lazy(() => import("src/pages/SecondLevelView"));  //二级菜单列表
 const Detail = lazy(() => import("src/pages/Detail")); //详情
 const LayoutView = lazy(() => import("src/views/LayoutView")); //布局
 
@@ -25,14 +26,19 @@ const myRouter: Array<RouteObject> = [
             {
                 path: "item",
                 // @ts-ignore
-                element: withLoadingComponent(<Item />),
+                element: withLoadingComponent(<FirstItem />),
+            },
+            {
+                path: "/item2",
+                // @ts-ignore
+                element: withLoadingComponent(<SecondItem />),
             },
         ]
     },
     {
         path: "/list",
         // @ts-ignore
-        element: withLoadingComponent(<Item/>),
+        element: withLoadingComponent(<FirstItem/>),
     },
     {
         path: "/detail",
@@ -53,8 +59,9 @@ const myRouter: Array<RouteObject> = [
     {
         path: "/item",
         // @ts-ignore
-        element: withLoadingComponent(<Item />),
+        element: withLoadingComponent(<FirstItem />),
     },
+
 ];
 export default myRouter
 

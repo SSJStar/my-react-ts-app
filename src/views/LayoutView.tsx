@@ -102,17 +102,17 @@ export default function LayoutView(){
             children: [
                 {
                     key: "7-1",
-                    path: "item?title=课程管理",
+                    path: "item2?title=课程管理",
                     label: "课程管理",
                 },
                 {
                     key: "7-2",
-                    path: "item?title=学生管理",
+                    path: "item2?title=学生管理",
                     label: "学生管理",
                 },
                 {
                     key: "7-3",
-                    path: "item?title=作业",
+                    path: "item2?title=作业",
                     label: "作业",
                 },
             ],

@@ -208,9 +208,10 @@ import {
     UserOutlined,
     VideoCameraOutlined, ZhihuOutlined
 } from "@ant-design/icons";
-import React, {useState} from "react";
-import {useNavigate,Outlet} from "react-router-dom";
+import React, {TouchEvent, UIEvent, useState} from "react";
+import {useNavigate, Outlet, useRoutes} from "react-router-dom";
 import {doWhileStatement} from "@babel/types";
+import {useLocation} from "react-router";
 const { Header, Sider, Content } = Layout;
 
 interface proComponentPro {
@@ -223,31 +224,23 @@ interface proComponentPro {
 export default function ListMenu(pro:proComponentPro){
     const navigateTo = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
+    const [navTitles,setNavTitles] = useState<Array<string>>([]);
+    const location = useLocation();
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-    // 点击菜单
+    // 点击垂直菜单
     const onClick: MenuProps['onClick'] = (e) => {
         console.log('click ', e.key);
-
-
-            // console.log(`key:${pro.listJson[2].label}`)
-            // console.log(`item1:${item.toString()}`)
-            // console.log(`item2:${item}`)
-            //
-            // console.log(`item3:${JSON.stringify(item)}`)
-            // console.log(typeof item);
-            // console.log(item.label);
-
+        console.log('location 1 ', location);
         // console.log("下标1--- " + "abce".indexOf("c"));
 
+
         // 如果是 "x-y-z-n"这种key，需要特殊处理
-        // dataSource:要查找的数据源
-        // key:分割符
-
-
+        //    @dataSource: 要查找的数据源
+        //    @key:    分割符
         const checkNumber = (dataSource:string, key:string)=>{
-            const navTitles = [];
+            const titles = [];
             let currentList = pro.listJson;
             let routerPath = "";
             let endResult = false; //用来控制do…while…语句，false表示继续循环，true表示结束循环
@@ -264,8 +257,9 @@ export default function ListMenu(pro:proComponentPro){
                     console.log("numberBegin --- " + numberBegin);
                     // 将路径传给routerPath
                     routerPath = currentList[parseInt(numberBegin) - 1].path;
-                    //将标题添加到navTitles数组
-                    navTitles.push(currentList[parseInt(numberBegin) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
+                    //将标题添加到titles数组
+                    titles.push(currentList[parseInt(numberBegin) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
+                    setNavTitles(titles);
                     //更新currentList，方便下一次查找
                     currentList = currentList[parseInt(numberBegin) - 1].children;
                     // 更新dataSource，方便下一次do循环
@@ -273,21 +267,19 @@ export default function ListMenu(pro:proComponentPro){
                     // checkA(); //继续下一次checkA函数循环
                 }else {
                     console.log("else块")
-                    // if(navTitles.length == 0){
+                    // if(titles.length == 0){
                     //     // 说明是第一次循环，且只有这一个层级，直接拿来用即可
                     //     routerPath = currentList[parseInt(dataSource)].path;
                     // }else{
                     //     //说明最起码是第二次循环checkA函数，能进入else说明没找到，这里直接返回即可
                     //     endResult = true;
                     // }
-                    console.log("currentList")
-                    console.log(currentList)
-                    console.log(`dataSource:${(parseInt(dataSource) - 1).toString()}`)
                     routerPath = currentList[parseInt(dataSource) - 1].path;
-                    //将标题添加到navTitles数组
-                    navTitles.push(currentList[parseInt(dataSource) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
-                    // `)
+                    //将标题添加到titles数组
+                    titles.push(currentList[parseInt(dataSource) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
+                    setNavTitles(titles);
                     endResult = true;
+
                 }
             }while (!endResult)
 
@@ -321,19 +313,9 @@ export default function ListMenu(pro:proComponentPro){
 
         checkNumber(e.key,"-");
 
-        // if (indexValue > -1) { //找到 "-"
-        //
-        //     //取出"-"前面一个数字
-        //     const numberBegin = e.key.substring(0,indexValue)
-        //     console.log("numberOne --- " + numberBegin);
-        //
-        //     //取出"-"后面一个数字
-        //     // indexValue是"-"的下标，我们要从下一个开始算
-        //     // 参数1 ≤ substring计算结果 < 参数2，所以「参数2」要用e.key.length
-        //     const numberLast = e.key.substring(indexValue + 1,e.key.length)
-        // }
-
-
+        setTimeout(()=>{
+            console.log('location 2 ', location);
+        },200);
         // 减去1是因为，数组下标是从0开始，而key是从1开始
         // const index = parseInt(e.key) - 1;
         // console.log('index ', index);
@@ -352,6 +334,22 @@ export default function ListMenu(pro:proComponentPro){
         //
         //     // TODO: state方式 - 传递参数
         //     // navigateTo("item",{state:{title:'state传值',name:"王五"}})
+    };
+
+
+
+    // e:MouseEvent
+
+    // item表示点击的标题内容，index表示点击的下标（index从0开始）
+    const handelTopMenu = (item: string, index: number) => {
+        return (event: React.MouseEvent) => {
+            console.log(`点击了 ${item}`)
+            event.preventDefault();
+            // 假设展示的是「管理中心/我/个人详情」，点击了第1个（我），
+            // 就从数组navTitles中删掉下标1后面的数据，然后执行setNavTitles(titles);
+            const arr = navTitles.splice(index,navTitles.length - (index + 1)); // index从0开始，这里要选个数
+            setNavTitles(arr);
+        }
     };
 
     return (
@@ -386,6 +384,16 @@ export default function ListMenu(pro:proComponentPro){
                             height: 64,
                         }}
                     />
+                    {/*<label>{navTitles.join('-')}</label>*/}
+                    {/* 遍历输出导航菜单 */}
+                    {navTitles.map((item,index) => {
+                        if (index == (navTitles.length - 1)){
+                            return <label onClick={ handelTopMenu(item,index) } key={index} dangerouslySetInnerHTML={{__html:item}}></label>
+                        }else {
+                            return <label onClick={ handelTopMenu(item,index) } key={index} dangerouslySetInnerHTML={{__html:item + "/"}}></label>
+                            // return <label onClick={(e)=>{console.log(`点击了 ${index}`) } } key={index} dangerouslySetInnerHTML={{__html:item + "/"}}></label>
+                        }
+                    })}
                 </Header>
                 <Content
                     style={{

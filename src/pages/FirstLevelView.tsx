@@ -3,7 +3,7 @@ import {useLocation, useParams} from "react-router";
 import {useSearchParams} from "react-router-dom";
 import {get} from "@jridgewell/set-array";
 
-export default function Item(){
+export default function FirstLevelView(){
 
     // TODO: search方式 - 接收参数
     let [params,SetParams] = useSearchParams();
@@ -24,7 +24,7 @@ export default function Item(){
     // console.log(`title --> ${titleValue} name --> ${nameValue}`);
     return (
         <div>
-            <h1>tile is { titleValue }.</h1>
+            <h1>This is FirstLevelView, and the title is { titleValue }.</h1>
         </div>
     );
 }
