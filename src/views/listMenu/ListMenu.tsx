@@ -210,6 +210,7 @@ import {
 } from "@ant-design/icons";
 import React, {useState} from "react";
 import {useNavigate,Outlet} from "react-router-dom";
+import {doWhileStatement} from "@babel/types";
 const { Header, Sider, Content } = Layout;
 
 interface proComponentPro {
@@ -237,13 +238,110 @@ export default function ListMenu(pro:proComponentPro){
             // console.log(`item3:${JSON.stringify(item)}`)
             // console.log(typeof item);
             // console.log(item.label);
-        // 减去1是因为，数组下标是从0开始，而key是从1开始
-        const index = parseInt(e.key) - 1;
-        console.log('index ', index);
-        const itemInfo = pro.listJson[index];
-        console.log(`选中了${itemInfo.label}`);
-            navigateTo(itemInfo.path);
+
+        // console.log("下标1--- " + "abce".indexOf("c"));
+
+        // 如果是 "x-y-z-n"这种key，需要特殊处理
+        // dataSource:要查找的数据源
+        // key:分割符
+
+
+        const checkNumber = (dataSource:string, key:string)=>{
+            const navTitles = [];
+            let currentList = pro.listJson;
+            let routerPath = "";
+            let endResult = false; //用来控制do…while…语句，false表示继续循环，true表示结束循环
+            let dowhilecount = 0;
+            do {
+                ++dowhilecount;
+                console.log(`第${dowhilecount}次循环`)
+                // indexOf 当查询结果为空时，返回 -1
+                const indexValue = dataSource.indexOf("-");
+                if (indexValue > -1) { //找到 "-"
+
+                    //取出"-"前面一个数字
+                    const numberBegin = dataSource.substring(0,indexValue)
+                    console.log("numberBegin --- " + numberBegin);
+                    // 将路径传给routerPath
+                    routerPath = currentList[parseInt(numberBegin) - 1].path;
+                    //将标题添加到navTitles数组
+                    navTitles.push(currentList[parseInt(numberBegin) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
+                    //更新currentList，方便下一次查找
+                    currentList = currentList[parseInt(numberBegin) - 1].children;
+                    // 更新dataSource，方便下一次do循环
+                    dataSource = dataSource.substring(indexValue + 1,e.key.length)
+                    // checkA(); //继续下一次checkA函数循环
+                }else {
+                    console.log("else块")
+                    // if(navTitles.length == 0){
+                    //     // 说明是第一次循环，且只有这一个层级，直接拿来用即可
+                    //     routerPath = currentList[parseInt(dataSource)].path;
+                    // }else{
+                    //     //说明最起码是第二次循环checkA函数，能进入else说明没找到，这里直接返回即可
+                    //     endResult = true;
+                    // }
+                    console.log("currentList")
+                    console.log(currentList)
+                    console.log(`dataSource:${(parseInt(dataSource) - 1).toString()}`)
+                    routerPath = currentList[parseInt(dataSource) - 1].path;
+                    //将标题添加到navTitles数组
+                    navTitles.push(currentList[parseInt(dataSource) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
+                    // `)
+                    endResult = true;
+                }
+            }while (!endResult)
+
+            // const checkA = () => {
+            //     // indexOf 当查询结果为空时，返回 -1
+            //     const indexValue = dataSource.indexOf("-");
+            //     if (indexValue > -1) { //找到 "-"
+            //
+            //         //取出"-"前面一个数字
+            //         const numberBegin = dataSource.substring(0,indexValue)
+            //         console.log("numberOne --- " + numberBegin);
+            //         navTitles.push(currentList[parseInt(dataSource)].label); //将标题添加到navTitles数组
+            //         currentList = currentList[parseInt(dataSource)]; //更新currentList，方便下一次查找
+            //
+            //         checkA(); //继续下一次checkA函数循环
+            //     }else {
+            //         if(navTitles.length == 0){
+            //             // 说明只有这一个层级，直接拿来用即可
+            //             routerPath = currentList[parseInt(dataSource)].path;
+            //         }else{
+            //             //说明最起码是第二次循环checkA函数，能进入else说明没找到，这里直接返回即可
+            //             return;
+            //         }
+            //         return
+            //     }
+            // }
+            console.log("navTitles: " + navTitles);
+            console.log("routerPath: " + routerPath);
+            navigateTo(routerPath);
+        }
+
+        checkNumber(e.key,"-");
+
+        // if (indexValue > -1) { //找到 "-"
         //
+        //     //取出"-"前面一个数字
+        //     const numberBegin = e.key.substring(0,indexValue)
+        //     console.log("numberOne --- " + numberBegin);
+        //
+        //     //取出"-"后面一个数字
+        //     // indexValue是"-"的下标，我们要从下一个开始算
+        //     // 参数1 ≤ substring计算结果 < 参数2，所以「参数2」要用e.key.length
+        //     const numberLast = e.key.substring(indexValue + 1,e.key.length)
+        // }
+
+
+        // 减去1是因为，数组下标是从0开始，而key是从1开始
+        // const index = parseInt(e.key) - 1;
+        // console.log('index ', index);
+        // const itemInfo = pro.listJson[index];
+        // console.log(`选中了${itemInfo.label}`);
+        //     navigateTo(itemInfo.path);
+
+
         //     // TODO: search方式 - 传递参数
         //     // console.log(key);
         //     // navigateTo("item?title=sear传值&name=张三")

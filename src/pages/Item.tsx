@@ -9,8 +9,8 @@ export default function Item(){
     let [params,SetParams] = useSearchParams();
     const titleValue = params.get("title")
     const nameValue = params.get("name")
-    console.log(`useSearchParams --> ${params.toString()}`);
-    console.log(`title --> ${titleValue} name --> ${nameValue}`);
+    // console.log(`useSearchParams --> ${params.toString()}`);
+    // console.log(`title --> ${titleValue} name --> ${nameValue}`);
 
     // TODO: params方式 - 接收参数
     // let params = useParams()
