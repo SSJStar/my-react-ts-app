@@ -114,6 +114,23 @@ export default function LayoutView(){
                     key: "7-3",
                     path: "item2?title=作业",
                     label: "作业",
+                    children: [
+                        {
+                            key: "7-3-1",
+                            path: "item2?title=宫保鸡丁",
+                            label: "宫保鸡丁",
+                        },
+                        {
+                            key: "7-3-2",
+                            path: "item2?title=红烧排骨",
+                            label: "红烧排骨",
+                        },
+                        {
+                            key: "7-3-3",
+                            path: "item2?title=酸辣土豆丝",
+                            label: "酸辣土豆丝",
+                        },
+                    ],
                 },
             ],
         },

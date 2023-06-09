@@ -220,137 +220,155 @@ interface proComponentPro {
     listJson:Array<any>,  // 菜单数据源
 }
 
+// interface menuInfo {
+//     key: string,
+//     path: string,
+//     title: string,
+// }
+
 /*TODO: 唯一的模块导出 */
 export default function ListMenu(pro:proComponentPro){
+    // 拿到路由对象
     const navigateTo = useNavigate();
+    // Layout.Sider的属性，负责控制侧边栏（Sider）展开和收起
     const [collapsed, setCollapsed] = useState(false);
+    // 记录横向导航路径的标题名
     const [navTitles,setNavTitles] = useState<Array<string>>([]);
-    const location = useLocation();
+    // 这个变量最终要传给selectedKeys; 示例：[7,3,5]，表示7-3-5，
+    const [keys,setKeys] = useState<Array<string>>([]);
+    // 控制垂直菜单-被选中菜单的key <Array:string>
+    const [selectedKeys,setSelectedKeys] = useState<Array<string>>([]);
+
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-    // 点击垂直菜单
+
+    // 如果是 "x-y-z-n"这种key，需要特殊处理
+    //    @dataSource: 要查找的数据源
+    //    @key:    分割符
+    const checkNumber = (dataSource:string, key:string)=>{
+        /**
+         * 思路：
+         *  dataSource：7-3-2
+         *  key："-"
+         *
+         *  do…while会根据dataSource，一层层的寻找到最后一个key，期间会逐个取出path、label
+         *  do循环块：
+         *      1、判断dataSource字符串是否包含分隔符"-"，
+         *          1.1、不包含
+         *              1.1.1、取出currentList最后一个元素的path，赋值给routerPath
+         *              1.1.2、取出currentList最后一个元素的label，添加到navTitles
+         *              1.1.3、endResult = true，【结束do…while循环】
+         *          1.2、包含
+         *              1.2.1、取出"-"前面元素的path，赋值给routerPath
+         *              1.2.2、取出"-"前面元素的label，添加到navTitles
+         *              1.2.3、更新currentList，方便下一次循环
+         *              1.2.4、更新dataSource，方便下一次循环
+         * */
+
+        const titles = []; //字符串数组，接收被选中路径的菜单名，比如：首页/我/信用积分
+
+        let currentList = pro.listJson; // 用来存放 - do…while当前循环临时数据源
+
+        let routerPath = ""; // 每次循环结束，都会更新路径
+
+        let endResult = false; //用来控制do…while…语句，false表示继续循环，true表示结束循环
+
+        let dowhilecount = 0; // 统计do…while循环次数
+
+        do {
+            ++dowhilecount;
+            console.log(`第${dowhilecount}次循环`)
+
+            // indexOf 当查询结果为空时，返回 -1
+            const indexValue = dataSource.indexOf("-");
+
+            if (indexValue > -1) { //找到了 "-"
+
+                //取出"-"前面一个数字
+                const numberBegin = dataSource.substring(0,indexValue)
+
+                // 取出"-"前面一个数字 对应的数据源
+                //   pro.listJsonkey是下标从1开始，所以下标要减去1
+                const obj = currentList[parseInt(numberBegin) - 1];
+
+                // 将路径传给routerPath
+                routerPath = obj.path;
+
+                //  将标题添加到titles数组
+                titles.push(obj.label);
+                setNavTitles(titles);
+
+                //更新currentList，方便下一次查找
+                currentList = obj.children;
+
+                // 更新dataSource，方便下一次do循环
+                dataSource = dataSource.substring(indexValue + 1,dataSource.length)
+            }else {
+                console.log("else块")
+
+                routerPath = currentList[parseInt(dataSource) - 1].path;
+                //将标题添加到titles数组
+                titles.push(currentList[parseInt(dataSource) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
+                setNavTitles(titles);
+                endResult = true;
+
+            }
+        }while (!endResult)
+        //
+        navigateTo(routerPath);
+    }
+
+    // TODO：点击垂直菜单
     const onClick: MenuProps['onClick'] = (e) => {
         console.log('click ', e.key);
-        console.log('location 1 ', location);
-        // console.log("下标1--- " + "abce".indexOf("c"));
 
+        setSelectedKeys([e.key]); // 给组件传selectedKeys
 
-        // 如果是 "x-y-z-n"这种key，需要特殊处理
-        //    @dataSource: 要查找的数据源
-        //    @key:    分割符
-        const checkNumber = (dataSource:string, key:string)=>{
-            const titles = [];
-            let currentList = pro.listJson;
-            let routerPath = "";
-            let endResult = false; //用来控制do…while…语句，false表示继续循环，true表示结束循环
-            let dowhilecount = 0;
-            do {
-                ++dowhilecount;
-                console.log(`第${dowhilecount}次循环`)
-                // indexOf 当查询结果为空时，返回 -1
-                const indexValue = dataSource.indexOf("-");
-                if (indexValue > -1) { //找到 "-"
+        setKeys(e.key.split('-')); // 记录key数组，handelTopMenu函数要用到
 
-                    //取出"-"前面一个数字
-                    const numberBegin = dataSource.substring(0,indexValue)
-                    console.log("numberBegin --- " + numberBegin);
-                    // 将路径传给routerPath
-                    routerPath = currentList[parseInt(numberBegin) - 1].path;
-                    //将标题添加到titles数组
-                    titles.push(currentList[parseInt(numberBegin) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
-                    setNavTitles(titles);
-                    //更新currentList，方便下一次查找
-                    currentList = currentList[parseInt(numberBegin) - 1].children;
-                    // 更新dataSource，方便下一次do循环
-                    dataSource = dataSource.substring(indexValue + 1,e.key.length)
-                    // checkA(); //继续下一次checkA函数循环
-                }else {
-                    console.log("else块")
-                    // if(titles.length == 0){
-                    //     // 说明是第一次循环，且只有这一个层级，直接拿来用即可
-                    //     routerPath = currentList[parseInt(dataSource)].path;
-                    // }else{
-                    //     //说明最起码是第二次循环checkA函数，能进入else说明没找到，这里直接返回即可
-                    //     endResult = true;
-                    // }
-                    routerPath = currentList[parseInt(dataSource) - 1].path;
-                    //将标题添加到titles数组
-                    titles.push(currentList[parseInt(dataSource) - 1].label); //pro.listJson下标从1开始，所以下标要减去1
-                    setNavTitles(titles);
-                    endResult = true;
-
-                }
-            }while (!endResult)
-
-            // const checkA = () => {
-            //     // indexOf 当查询结果为空时，返回 -1
-            //     const indexValue = dataSource.indexOf("-");
-            //     if (indexValue > -1) { //找到 "-"
-            //
-            //         //取出"-"前面一个数字
-            //         const numberBegin = dataSource.substring(0,indexValue)
-            //         console.log("numberOne --- " + numberBegin);
-            //         navTitles.push(currentList[parseInt(dataSource)].label); //将标题添加到navTitles数组
-            //         currentList = currentList[parseInt(dataSource)]; //更新currentList，方便下一次查找
-            //
-            //         checkA(); //继续下一次checkA函数循环
-            //     }else {
-            //         if(navTitles.length == 0){
-            //             // 说明只有这一个层级，直接拿来用即可
-            //             routerPath = currentList[parseInt(dataSource)].path;
-            //         }else{
-            //             //说明最起码是第二次循环checkA函数，能进入else说明没找到，这里直接返回即可
-            //             return;
-            //         }
-            //         return
-            //     }
-            // }
-            console.log("navTitles: " + navTitles);
-            console.log("routerPath: " + routerPath);
-            navigateTo(routerPath);
-        }
-
-        checkNumber(e.key,"-");
-
-        setTimeout(()=>{
-            console.log('location 2 ', location);
-        },200);
-        // 减去1是因为，数组下标是从0开始，而key是从1开始
-        // const index = parseInt(e.key) - 1;
-        // console.log('index ', index);
-        // const itemInfo = pro.listJson[index];
-        // console.log(`选中了${itemInfo.label}`);
-        //     navigateTo(itemInfo.path);
-
-
-        //     // TODO: search方式 - 传递参数
-        //     // console.log(key);
-        //     // navigateTo("item?title=sear传值&name=张三")
-        //
-        //     // TODO: params方式 - 传递参数
-        //     // navigateTo("item/params传值/name=李四")
-        //     // navigateTo("item/001")
-        //
-        //     // TODO: state方式 - 传递参数
-        //     // navigateTo("item",{state:{title:'state传值',name:"王五"}})
+        checkNumber(e.key,"-"); //开始查找path和label（key格式："7-3-1"）
     };
 
 
-
     // e:MouseEvent
-
+    // TODO：顶部菜单点击
     // item表示点击的标题内容，index表示点击的下标（index从0开始）
     const handelTopMenu = (item: string, index: number) => {
         return (event: React.MouseEvent) => {
             console.log(`点击了 ${item}`)
+            console.log(selectedKeys);
             event.preventDefault();
-            // 假设展示的是「管理中心/我/个人详情」，点击了第1个（我），
-            // 就从数组navTitles中删掉下标1后面的数据，然后执行setNavTitles(titles);
-            const arr = navTitles.splice(index,navTitles.length - (index + 1)); // index从0开始，这里要选个数
-            setNavTitles(arr);
+            if (index < (navTitles.length - 1) ) {
+                // 1、当index == (navTitles.length - 1 ，说明点击的是最后一个（即当前页），
+                //      那就不需要变化，所以这里要判断小于才执行
+                // 2、假设展示的是「管理中心/我/个人详情」，点击了第1个（我），
+                //    就从数组navTitles中删掉下标1后面的数据，然后执行setNavTitles(titles);
+
+                // 因为index从0开始的，这里要选个数，所以计算的时候要+1
+                const arr = navTitles.splice(index,navTitles.length - (index + 1));
+                console.log(index + " - " + (navTitles.length - (index + 1)) + " - " + navTitles.length );
+
+                setNavTitles(arr);
+                // 因为index从0开始的，这里要选个数，所以计算的时候要+1
+                const key_arr = keys.splice(index,keys.length - (index + 1));
+                setKeys(key_arr);
+                // console.log("a - " + key_arr);
+                // console.log("b - " + key_arr.join("-"));
+                checkNumber(key_arr.join("-"),"-");
+
+                setSelectedKeys([key_arr.join("-")]); // 给组件传selectedKeys
+            }
         }
     };
+
+    const backFontColor = (compareString:string) => {
+        if ( compareString === navTitles[navTitles.length - 1] ) {
+            return "Black";
+        }else
+            return "#696969";
+    };
+
 
     return (
         <Layout style={{ width: "100vw", height: "100vh", color: "#fff" }}>
@@ -370,6 +388,7 @@ export default function ListMenu(pro:proComponentPro){
                     defaultSelectedKeys={["1"]}
                     onClick={onClick}
                     items={pro.listJson}
+                    selectedKeys={selectedKeys}
                 />
             </Sider>
             <Layout>
@@ -388,9 +407,11 @@ export default function ListMenu(pro:proComponentPro){
                     {/* 遍历输出导航菜单 */}
                     {navTitles.map((item,index) => {
                         if (index == (navTitles.length - 1)){
-                            return <label onClick={ handelTopMenu(item,index) } key={index} dangerouslySetInnerHTML={{__html:item}}></label>
+                            return <label onClick={ handelTopMenu(item,index) } style={{color:backFontColor(item)}}
+                                          key={index} dangerouslySetInnerHTML={{__html:item}}></label>
                         }else {
-                            return <label onClick={ handelTopMenu(item,index) } key={index} dangerouslySetInnerHTML={{__html:item + "/"}}></label>
+                            return <label onClick={ handelTopMenu(item,index) } style={{color:backFontColor(item)}}
+                                          key={index} dangerouslySetInnerHTML={{__html:item + " / "}}></label>
                             // return <label onClick={(e)=>{console.log(`点击了 ${index}`) } } key={index} dangerouslySetInnerHTML={{__html:item + "/"}}></label>
                         }
                     })}
