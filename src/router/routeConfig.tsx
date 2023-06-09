@@ -3,7 +3,6 @@ import {RouteObject} from "react-router-dom";
 import { lazy } from "react";
 import React from "react";
 
-
 const  withLoadingComponent = (com:JSX.Element) => (
     <React.Suspense fallback={<div>loading...</div>}>{com}</React.Suspense>
 );
@@ -64,56 +63,3 @@ const myRouter: Array<RouteObject> = [
 
 ];
 export default myRouter
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { lazy } from "react";
-// import { RouteObject } from "react-router-dom";
-//
-// import Index from "src/views/Index";
-// import item from "@/pages/item";
-// // react懒加载
-// const Login = lazy(() => import("src/views/Login"));
-// const Home = lazy(() => import("src/views/Home"));
-// const Personal = lazy(() => import("src/views/Personal"));
-// const AllData = lazy(() => import("src/views/AllData"));
-//
-// const withLoadingComponent = (comp: JSX.Element) => (
-//     <React.Suspense fallback={<div>Loading...</div>}>{comp}</React.Suspense>
-// );
-//
-// const routes: Array<RouteObject> = [
-//     {
-//         path: "/",
-//         element: withLoadingComponent(<Home />),//<Index />,
-//     },
-//     {
-//         path: "/login",
-//         element: withLoadingComponent(<Login />),
-//     },
-//     {
-//         path: "/*",  //父子路由
-//         element: withLoadingComponent(<Home />),
-//         children: [
-//             {
-//                 index: true,
-//                 path: "home",
-//                 element: <AllData />,
-//             },
-//             {
-//                 path: "personal",
-//                 element: <Personal />,
-//             },
-//         ],
-//     },
-// ];
-// export default routes;
