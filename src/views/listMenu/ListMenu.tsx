@@ -5,6 +5,8 @@ import {
 } from "@ant-design/icons";
 import React, { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+
+
 const { Header, Sider, Content } = Layout;
 
 // TODO：定义几个参数
@@ -105,10 +107,24 @@ export default function ListMenu(pro:proComponentPro){
         // console.log('click ', e.key);
         //开始查找path和label（key格式："7-3-1"）
         checkNumber(e.key,"-");
+
+
+        // 赋值
+        // window["method1"] = ()=>{};
+        // window["property1"] = "22222";
+        // 使用
+        // window["method1"]();
+        // let str = window["property1"];
+        // console.log(`str---: ${str}`)
+
+        // console.log(global.themeBgColor)
+        // console.log(global.navTitleColor)
+        // console.log(themeBgColor)
+        // console.log(navTitleColor)
     };
 
 
-    // 顶部菜单，标题文字颜色切换
+    // 顶部菜单，管理员和其它文字颜色切换
     const backFontColor = (compareString:string) => {
         if ( compareString === navTitles[navTitles.length - 1] ) {
             return "Black"; //当前页，显示黑色
@@ -139,6 +155,7 @@ export default function ListMenu(pro:proComponentPro){
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }}>
+                    {/* 展开｜收起 */}
                     <Button
                         type="text"
                         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

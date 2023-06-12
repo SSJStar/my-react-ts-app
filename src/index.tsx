@@ -7,6 +7,99 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
+import Icon from "src/component/Icon";
+
+
+// 赋值
+window["method1"] = ()=>{};
+window["property1"] = "333";
+window.themeBgColor = "#41527";
+window.navTitleColor = "white";
+
+window.listMenuData = [
+    {
+        key: "1",
+        path: "item?title=全站数据",
+        icon: <Icon name={"BarChartOutlined"}/>,
+        label: "全站数据",
+    },
+    {
+        key: "2",
+        path: "item?title=课程大厅",
+        icon: "VideoCameraOutlined",
+        label: "课程大厅",
+    },
+    {
+        key: "3",
+        path: "item?title=我的课程",
+        icon: "UploadOutlined",
+        label: "我的课程",
+    },
+    {
+        key: "4",
+        path: "item?title=直播课息",
+        icon: "VideoCameraOutlined",
+        label: "直播课",
+    },
+    {
+        key: "5",
+        path: "item?title=个人信息",
+        icon: "UserOutlined",
+        label: "个人信息",
+    },
+    {
+        key: "6",
+        path: "item?title=消息",
+        icon: "SoundOutlined",
+        label: "消息",
+    },
+    {
+        key: "7",
+        path: "item?title=管理中心",
+        icon: "UploadOutlined",
+        label: "管理中心",
+        children: [
+            {
+                key: "7-1",
+                path: "item2?title=课程管理",
+                label: "课程管理",
+            },
+            {
+                key: "7-2",
+                path: "item2?title=学生管理",
+                label: "学生管理",
+            },
+            {
+                key: "7-3",
+                path: "item2?title=厨艺管理",
+                label: "厨艺管理",
+                children: [
+                    {
+                        key: "7-3-1",
+                        path: "item2?title=宫保鸡丁",
+                        label: "宫保鸡丁",
+                    },
+                    {
+                        key: "7-3-2",
+                        path: "item2?title=红烧排骨",
+                        label: "红烧排骨",
+                    },
+                    {
+                        key: "7-3-3",
+                        path: "item2?title=酸辣土豆丝",
+                        label: "酸辣土豆丝",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        key: "8",
+        path: "/login",
+        icon: "QqOutlined",
+        label: "退出登录",
+    },
+]
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,6 +109,7 @@ root.render(
       <BrowserRouter><App /></BrowserRouter>
   </React.StrictMode>
 );
+
 // 这句会在浏览器控制台，打印一些警告
 // reportWebVitals(console.warn);
 

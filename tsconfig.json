@@ -28,7 +28,8 @@
   "include": [
     "src",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/component/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }

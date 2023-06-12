@@ -14,6 +14,8 @@ const SecondItem = lazy(() => import("src/pages/SecondLevelView"));  //二级菜
 const Detail = lazy(() => import("src/pages/Detail")); //详情
 const LayoutView = lazy(() => import("src/views/LayoutView")); //布局
 
+// const ComponentA = lazy(() =>  import ("src/views/test/ComponentA"));
+
 const Home = lazy(() => import("src/views/others/Home")); //测试页
 const myRouter: Array<RouteObject> = [
     {

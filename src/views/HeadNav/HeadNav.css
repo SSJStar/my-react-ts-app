@@ -1,10 +1,12 @@
+
 .head-nav {
     width: 100%;
     /*height: v-bind(navgation_height);*/
     height: 80px;
     overflow: hidden;
-    /*background-color: v-bind(navgation_bgColor); !** cadetblue *!*/
     background-color: cadetblue;
+    /*background-color: #001529;*/
+    /*background-color: rgb(52,85,95);*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,8 +14,6 @@
 
 /* 标题 */
 .head-nav label {
-    /*font-size: v-bind(navgation_fontSize);*/
-    /*color: v-bind(navgation_titleColor);*/
     font-size: 24px;
     color: darkslategray;
 }
