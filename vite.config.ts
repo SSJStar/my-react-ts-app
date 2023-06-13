@@ -24,7 +24,7 @@ export default defineConfig({
     plugins: [reactRefresh()],
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, './src'),
+            "@": path.resolve(__dirname, 'src'),
             // "#": path.join(__dirname,"types")
         },
         // extensions: ['.js', '.jsx', '.ts', '.tsx'],
