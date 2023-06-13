@@ -5,7 +5,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
 import Icon from "src/component/Icon";
 
@@ -16,11 +15,12 @@ window["property1"] = "333";
 window.themeBgColor = "#41527";
 window.navTitleColor = "white";
 
+// TODO: 初始化是window.listMenuData，并对icon属性组件化
 window.listMenuData = [
     {
         key: "1",
         path: "item?title=全站数据",
-        icon: <Icon name={"BarChartOutlined"}/>,
+        icon: "BarChartOutlined",// <Icon name={"BarChartOutlined"}/>
         label: "全站数据",
     },
     {
@@ -100,6 +100,9 @@ window.listMenuData = [
         label: "退出登录",
     },
 ]
+window.listMenuData.forEach((value)=>{
+    value.icon = <Icon name={value.icon}/>
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
