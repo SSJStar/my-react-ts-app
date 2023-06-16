@@ -1,6 +1,5 @@
-import colors from "tailwindcss/colors";
 import "src/views/HeadNav/HeadNav.css"
-import {Button, Dropdown, MenuProps} from "antd";
+import { Dropdown, MenuProps} from "antd";
 export default function HeadNav(){
 
     // 下拉数据

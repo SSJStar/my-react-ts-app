@@ -57,3 +57,8 @@ export function getDeviceList(params) {
   return http.get("/rft/getNewDevices", params);
 }
 // http://hvac.365env.com/rft/getNewDevices?user_id=10000014
+
+
+export function testRquest(params) {
+  return http.get("/XCtnfMJ85f813d3a7847f14c01592a467dbb707990534d0/user/userInfo", params);
+}

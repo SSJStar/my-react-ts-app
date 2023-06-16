@@ -20,7 +20,9 @@ declare interface Window {
 
      navTitleColor:string; // 导航标题颜色
 
-     listMenuData:Array<any>;//垂直菜单 - 数据源，数据初始化在index.tsx
+     listMenuData:Array<any>;// 垂直菜单 - 数据源，数据初始化在index.tsx
+
+     baseUrl: string;// 请求URL头部
 }
 
 // declare enum StaticVar {

@@ -1,7 +1,7 @@
 /**
  * 网络层，为上层（api.js或其它）提供get和post方法
  */
-import request from "@/api/request";
+import request, {createAxios} from "src/api/request";
 const http = {
   get(url, params) {
     const config = {
@@ -10,6 +10,8 @@ const http = {
     }; /*这里如果GET请求有参数，则携带上传入的参数，在
             URL中以？的方式放在请求链接中*/
     if (params) config.params = params;
+    console.log("13")
+    // createAxios("https://mockapi.eolink.com")
     return request(config);
   },
   post(url, params) {

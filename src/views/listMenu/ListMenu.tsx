@@ -5,6 +5,7 @@ import {
 } from "@ant-design/icons";
 import React, { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+import {testRquest} from "../../api/api";
 
 
 const { Header, Sider, Content } = Layout;
@@ -107,6 +108,16 @@ export default function ListMenu(pro:proComponentPro){
         // console.log('click ', e.key);
         //开始查找path和label（key格式："7-3-1"）
         checkNumber(e.key,"-");
+
+        window.baseUrl = "http://hvac.365env.com";
+        setTimeout(()=>{
+            testRquest({
+                responseId:"1232744"
+            }).then((res:any)=>{
+                console.log("请求结束了222\\n");
+                console.log(res);
+            })
+        },200);
 
 
         // 赋值

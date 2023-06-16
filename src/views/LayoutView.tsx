@@ -50,7 +50,9 @@
 import HeadNav from "src/views/HeadNav/HeadNav"
 import ListMenu from "src/views/listMenu/ListMenu";
 import React from "react";
-import {getDeviceList} from "src/api/api";
+import {getDeviceList, testRquest} from "src/api/api";
+import { Login} from "src/requestAPI/api"
+import axios from "axios";
 
 export default function LayoutView(){
 
@@ -141,22 +143,78 @@ export default function LayoutView(){
     // ]
     const listMenuData:Array<any> = window.listMenuData;
 
-    getDeviceList({
-        user_id: 10000014
-    }).then((res:any) => {
-        console.log("请求结束了\\n");
-        console.log(res);
-        if (res["code"] && res["code"] === "0") {
-            // 登录成功
-            alert("请求成功");
-            // json字符串 -> map
-            let userJson = JSON.parse(res["body"]);
 
-            let device_id = userJson["device_id"]; //设备编号
-            let device_type = userJson["device_type"]; //设备型号;
-            alert(`设备编号:${device_id} 设备型号:${device_type}`);
-        }
-    });
+    // const Axios = axios.create({
+    //     baseURL: "/api", //'http://192.168.50.18:9091',"http://hvac.365env.com/rft",
+    //     // baseURL: "http://hvac.365env.com",
+    //     timeout: 3000,
+    //     /*也可以不设置Content-Type，影响是在你发送请求时
+    //       Vue会先发送OPTIONS包探测路由是否存在，需要后端也做设置响应OPTIONS
+    //       方法，否则会报跨域错误；我这里用的Beego2，路由里不响应OPTIONS方法，
+    //       所以我在这块设置Content-Type*/
+    //     headers: {
+    //         // "Content-Type": "application/x-www-form-urlencoded",
+    //         "Access-Control-Allow-Origin":"http://hvac.365env.com/rft/getNewDevices",
+    //     },
+    //     /*这个配置很重要，允许axios携带用户Cookie到后端，不设置这个的话
+    //       Set-Cookie是无效的,除此之外,Chrome默认开启了SameSite检查，如果
+    //       后端不主动设置SameSite = none,Set-Cookie是无效的。详情请文章末尾
+    //       参考阮老师的SameSite讲解*/
+    //     withCredentials: true,
+    // });
+    // Axios.get('http://hvac.365env.com/rft/getNewDevices?user_id=10000014')
+    //     .then(res => {
+    //         console.log("请求结束了11\\n");
+    //         console.log(res.data);
+    //     });
+
+    // axios.get('https://mockapi.eolink.com/XCtnfMJ85f813d3a7847f14c01592a467dbb707990534d0/user/userInfo?responseId=1232744')
+    //     .then(res => {
+    //         console.log("返回数据1：")
+    //         console.log(res.data)
+    //     });
+    //
+    // axios.get('http://hvac.365env.com/rft/getNewDevices?user_id=10000014')
+    //     .then(res => {
+    //         console.log("返回数据2：")
+    //         console.log(res.data)
+    //     });
+
+
+
+    // Login({
+    //     user_id: 10000014
+    // }).then(res => {
+    //     console.log("请求结束了\\n");
+    //     console.log(res);
+    // }).catch(error=>{
+    //     console.log("请求失败\\n");
+    //     console.log(error);
+    // })
+
+    // getDeviceList({
+    //     user_id: 10000014
+    // }).then((res:any) => {
+    //     console.log("请求结束了\\n");
+    //     console.log(res);
+    //     if (res["code"] && res["code"] === "0") {
+    //         // 登录成功
+    //         alert("请求成功");
+    //         // json字符串 -> map
+    //         let userJson = JSON.parse(res["body"]);
+    //
+    //         let device_id = userJson["device_id"]; //设备编号
+    //         let device_type = userJson["device_type"]; //设备型号;
+    //         alert(`设备编号:${device_id} 设备型号:${device_type}`);
+    //     }
+    // });
+
+    testRquest({
+        responseId:"1232744"
+    }).then((res:any)=>{
+        console.log("请求结束了1111\\n");
+        console.log(res);
+    })
 
     return (
         <div>

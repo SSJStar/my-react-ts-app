@@ -14,6 +14,7 @@ window["method1"] = ()=>{};
 window["property1"] = "333";
 window.themeBgColor = "#41527";
 window.navTitleColor = "white";
+window.baseUrl = "https://mockapi.eolink.com";
 
 // TODO: 初始化是window.listMenuData，并对icon属性组件化
 window.listMenuData = [

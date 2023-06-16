@@ -11,7 +11,7 @@ import {
 import { Layout, Menu, Button, theme } from "antd";
 // import styles from "./home.module.scss";
 // import sim from "src/assets/sim.svg";
-import { useNavigate, useRoutes, Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 // import router from "src/router/routeConfig.tsx";
 
 const { Header, Sider, Content } = Layout;

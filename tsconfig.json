@@ -9,7 +9,7 @@
     //    让 @/ 生效
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+//      "@/*": ["src/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

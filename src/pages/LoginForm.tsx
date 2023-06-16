@@ -199,7 +199,7 @@
 import { UserOutlined } from '@ant-design/icons';
 import {Button, Input} from 'antd';
 import {style} from "postcss-minify-font-values/types/lib/keywords";
-import myRouter from "@/router/routeConfig";
+import myRouter from "src/router/routeConfig";
 import {lazy, Suspense} from "react";
 import {Route, useNavigate} from "react-router";
 // const LoginView = () => {

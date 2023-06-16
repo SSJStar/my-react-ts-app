@@ -9,8 +9,8 @@ const  withLoadingComponent = (com:JSX.Element) => (
 
 // @ts-ignore
 const LoginView = lazy(() => import("src/pages/LoginForm")); //
-const FirstItem = lazy(() => import("src/pages/FirstLevelView"));  //一级菜单列表
-const SecondItem = lazy(() => import("src/pages/SecondLevelView"));  //二级菜单列表
+const FirstItem = lazy(() => import("src/views/FirstLevelView"));  //一级菜单列表
+const SecondItem = lazy(() => import("src/views/SecondLevelView"));  //二级菜单列表
 const Detail = lazy(() => import("src/pages/Detail")); //详情
 const LayoutView = lazy(() => import("src/views/LayoutView")); //布局
 
